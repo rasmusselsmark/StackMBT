@@ -1,0 +1,32 @@
+// A simple stack model using C# model definitions 
+
+config Main 
+{
+    // Use all actions from implementation (adapter) class
+    action all StackMBT.Implementations.StackImplementation;
+
+    switch StepBound = none;
+    switch PathDepthBound = none;
+    switch StateBound = none;
+
+    switch TestClassBase = "vs";
+    switch GeneratedTestPath = "..\\StackMBT.TestSuites";
+    switch GeneratedTestNamespace = "StackMBT.TestSuites";
+    switch TestEnabled = false;
+    switch ForExploration = false;
+}
+
+// Model for simulating simple stack operations
+machine StackModel() : Main where ForExploration = true
+{
+    construct model program from Main
+    where scope = "StackMBT.Models.StackModel"
+}
+
+// Test suite
+machine StackTestSuite() : Main where ForExploration = true, TestEnabled = true
+{
+    construct test cases
+    where strategy = "ShortTests"
+    for StackModel()
+}
