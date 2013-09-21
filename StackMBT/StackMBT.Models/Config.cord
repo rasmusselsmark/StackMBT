@@ -7,7 +7,7 @@ config Main
 
     switch StepBound = none;
     switch PathDepthBound = none;
-    switch StateBound = none;
+    switch StateBound = 250;
 
     switch TestClassBase = "vs";
     switch GeneratedTestPath = "..\\StackMBT.TestSuites";

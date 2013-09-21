@@ -34,11 +34,20 @@ namespace StackMBT.Models
 			Condition.IsTrue(state.Equals(ModelState));
 		}
 
+		/// <summary>
+		/// Set an upper limit of elements in the stack, in order to limit model state space.
+		/// </summary>
+		/// <returns>True if current state is within bounds</returns>
+		[StateFilter]
+		static bool Filter()
+		{
+			return (ModelState.Stack.Count <= 5);
+		}
+
 		#region Actions
 		[Rule]
         public static void Push([Domain("PushValue")] int x)
         {
-            Condition.IsTrue(ModelState.Stack.Count < 5);
 			ModelState.Stack = ModelState.Stack.Insert(0, x);
         }
 
